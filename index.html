@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Jeu de Taquin</title>
+    <script src="jquery.js"></script>
+    </head>
+  <body>
+      <div class="row">
+        <div class="column">
+          <img src="" alt="" id="i1">
+          <img src="" alt="" id="i2">
+          <img src="" alt="" id="i3">
+        </div>
+        <div class="column">
+          <img src="" alt="" id="i4">
+          <img src="" alt="" id="i5">
+          <img src="" alt="" id="i6">
+        </div>
+        <div class="column">
+          <img src="" alt="" id="i7">
+          <img src="" alt="" id="i8">
+          <img src="" alt="" id="i9">
+        </div>
+      </div>
+      <script type="text/javascript">
+        $(function () {
+          var x=1;
+          const adj = {
+            "i1" : ["i2","i4"],
+            "i2" : ["i1","i3","i5"],
+            "i3" : ["i2","i6"],
+            "i4" : ["i1","i5","i7"],
+            "i5" : ["i2","i4","i6","i8"],
+            "i6" : ["i3","i9"],
+            "i7" : ["i4","i8"],
+            "i8" : ["i5","i7","i9"],
+            "i9" : ["i6","i8"]
+          };
+          function randomTaquin(x){
+          var imgF = shuffle(["1.png","2.png","3.png","4.png","5.png","6.png","7.png","8.png","vide.png"]);
+
+          $("img").each(function(i){
+
+            $(this).attr('src', x+"/"+imgF[i])
+
+          });
+        }
+        function shuffle(array) {
+
+          var ctr = array.length, temp, index;
+
+          while (ctr > 0) {
+            index = Math.floor(Math.random() * ctr);
+            ctr--;
+            temp = array[ctr];
+            array[ctr] = array[index];
+            array[index] = temp;
+          }
+
+        return array;
+
+      }
+
+
+      $( "img" ).click(function() {
+        var current = $(this).attr('id');
+        for(i=0;i<adj[current].length;i++){
+          if($('#'+adj[current][i]).attr('src')==x+"/vide.png"){
+            $('#'+adj[current][i]).attr('src',$(this).attr('src'));
+            $(this).attr('src',x+"/vide.png");
+          }
+        }
+
+    });
+    randomTaquin(1);
+    });
+      </script>
+  </body>
+</html>
